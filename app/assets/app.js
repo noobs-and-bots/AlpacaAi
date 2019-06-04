@@ -1,4 +1,9 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngRoute'])
+.config(function ($compileProvider) {
+    $compileProvider.imgSrcSanitizationWhitelist('*');
+    $compileProvider.aHrefSanitizationWhitelist('*');
+
+});
 
 app.controller('mainController', function ($scope, $http) {
 
@@ -9,7 +14,7 @@ app.controller('mainController', function ($scope, $http) {
         $http.post('/get_recommendation/user/' +  $scope.user).then(async function (arr) {
             console.log(arr.data);
             //$scope.userRecommendation = arr.data.map(idToName);
-            $scope.userRecommendation = await Promise.all(arr.data.map(function(el) { return idToName(el); }))
+            $scope.userRecommendation = await Promise.all(arr.data.map(async function(el) { return {id: el, name: await idToName(el)}; }))
         }).catch(function (err) {
             console.log(err);
         });
@@ -42,6 +47,11 @@ app.controller('mainController', function ($scope, $http) {
             document.getElementById("user-field").classList.add('empty');
             $scope.userRecommendation = [];
         }
+    }
+
+    $scope.openUrl = function (url) {
+        console.log(url);
+        window.open(url);
     }
 
     async function idToName(id) {

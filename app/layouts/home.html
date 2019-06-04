@@ -36,13 +36,14 @@
 
 
             <ul class="mdc-list mdc-list--two-line">
-                <li class="mdc-list-item" ng-repeat="recommendation in titleRecommendation">
-                    <span class="mdc-list-item__text">
-                        <span class="mdc-list-item__primary-text">{{recommendation}}</span>
-                        <span class="mdc-list-item__secondary-text">Second-line text</span>
-                    </span>
-                </li>
-            </ul>
+                    <li class="mdc-list-item" ng-repeat="recommendation in titleRecommendation">
+                        <span class="mdc-list-item__text"
+                            ng-click="openUrl('https://myanimelist.net/anime/' + recommendation.id);">
+                            <span class="mdc-list-item__primary-text">{{recommendation.name}}</span>
+                            <span class="mdc-list-item__secondary-text">Anime id is: {{recommendation.id}}</span>
+                        </span>
+                    </li>
+                </ul>
         </div>
         <div class="part right">
             <div style="mdc-typography--body1">... lub wpisz swoją nazwę użytkownika na MALu.</div>
@@ -56,22 +57,25 @@
             </form>
 
             <ul class="mdc-list mdc-list--two-line">
-                    <li class="mdc-list-item" ng-repeat="recommendation in userRecommendation">
-                        <span class="mdc-list-item__text">
-                            <span class="mdc-list-item__primary-text">{{recommendation}}</span>
-                            <span class="mdc-list-item__secondary-text">Second-line text</span>
-                        </span>
-                    </li>
-                </ul>
+                <li class="mdc-list-item" ng-repeat="recommendation in userRecommendation">
+                    <span class="mdc-list-item__text"
+                        ng-click="openUrl('https://myanimelist.net/anime/' + recommendation.id);">
+                        <span class="mdc-list-item__primary-text">{{recommendation.name}}</span>
+                        <span class="mdc-list-item__secondary-text">Anime id is: {{recommendation.id}}</span>
+                    </span>
+                </li>
+            </ul>
         </div>
     </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.0/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.0/angular-route.min.js"></script>
     <script src="assets/app.js"></script>
     <link rel="stylesheet" href="assets/styles.css">
     <script type="text/javascript">
         window.mdc.autoInit();
     </script>
 </body>
+
 </html>
