@@ -45,7 +45,7 @@ Y = np.array([
 
 D = X
 
-cr = ColaborativeRecomender(D, 5, 0.01, 0.01)
+cr = ColaborativeRecomender(D, 5, 0.0001, 0)
 print(cr.X, cr.Theta)
 print(D[:10])
 print(cr.cost())

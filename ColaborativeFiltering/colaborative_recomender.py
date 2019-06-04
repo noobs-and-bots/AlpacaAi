@@ -1,6 +1,10 @@
 import numpy as np
 from tqdm import trange
 
+class BadGDException(Exception):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
 class ColaborativeRecomender:
 
     def __init__(self, ratings, n_params, learning_rate, reg_par):
@@ -38,8 +42,12 @@ class ColaborativeRecomender:
         return c
 
     def fit(self, num_epochs, eps = 0.001):
-        for _ in trange(num_epochs, desc = 'GD:'):
+        last_cost = None
+        for i in trange(num_epochs, desc = 'GD:'):
             cost, x_grad, theta_grad = self.grad()
             self.X -= self.learning_rate * x_grad
             self.Theta -= self.learning_rate * theta_grad
             self.errors.append(cost)
+            if last_cost is not None and cost > last_cost:
+                raise BadGDException("GD failed after {} iterations".format(i))
+            last_cost = cost
