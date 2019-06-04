@@ -44,3 +44,4 @@ def animename(str):
         x = jsonify(anime.getAnimeName(str))
     except:
         abort(503)
+    return x
