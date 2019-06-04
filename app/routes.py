@@ -26,7 +26,7 @@ def send_file_l(path):
 
 @app.route('/get_recommendation/user/<string:uuu>', methods=['POST', 'GET'])
 def userrec(uuu):
-    return jsonify( [3171]+np.random.randint(10000, 100000, 10).tolist() )
+    return jsonify( ['234'] )
 
 @app.route('/get_recommendation/title/<string:ttt>', methods=['POST', 'GET'])
 def titlerec(ttt):
