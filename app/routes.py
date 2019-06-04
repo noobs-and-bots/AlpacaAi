@@ -16,11 +16,11 @@ def index():
 #def send_file(path):
 #    return send_from_directory('files', path)
 
-@app.route('/assets/<path:path>')
+@app.route('/assets/<path:path>', methods=['POST', 'GET'])
 def send_file_a(path):
     return send_from_directory('assets', path)
 
-@app.route('/layouts/<path:path>')
+@app.route('/layouts/<path:path>', methods=['POST', 'GET'])
 def send_file_l(path):
     return send_from_directory('layouts', path)
 
@@ -34,11 +34,11 @@ def titlerec(ttt):
 
 from scrapers import anime
 
-@app.route('/scrapper/id/<string:str>')
+@app.route('/scrapper/id/<string:str>', methods=['POST', 'GET'])
 def animeid(str):
     return jsonify(anime.getAnimeID(str))
 
-@app.route('/scrapper/name/<int:str>')
+@app.route('/scrapper/name/<int:str>', methods=['POST', 'GET'])
 def animename(str):
     try:
         x = jsonify(anime.getAnimeName(str))
