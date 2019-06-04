@@ -1,5 +1,6 @@
 from app import app
 from flask import abort, send_from_directory, request, jsonify
+import numpy as np
 
 @app.route('/')
 def homego():
@@ -25,14 +26,22 @@ def send_file_l(path):
 
 @app.route('/get_recommendation/user/<string:uuu>', methods=['POST', 'GET'])
 def userrec(uuu):
-    return jsonify([ uuu,'a','b','c'])
+    return jsonify( [3171]+np.random.randint(10000, 100000, 10).tolist() )
 
 @app.route('/get_recommendation/title/<string:ttt>', methods=['POST', 'GET'])
 def titlerec(ttt):
-    return jsonify([ ttt,'x','y','z'])
+    return jsonify(np.random.randint(10000, 100000, 10).tolist())
 
 from scrapers import anime
 
 @app.route('/scrapper/id/<string:str>')
 def animeid(str):
     return jsonify(anime.getAnimeID(str))
+
+@app.route('/scrapper/name/<int:str>')
+def animename(str):
+    try:
+        x = jsonify(anime.getAnimeName(str))
+    except:
+        abort(503)
+    return x
