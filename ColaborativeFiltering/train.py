@@ -15,9 +15,13 @@ def map_to_ids(column, idx):
             idd += 1
     return ids
 
-def train(verbose = True):
-    Const = 500
-
+def train(train_level = 1, verbose = True):
+    if train_level == 1:
+        Const = 500
+        epochs = 500
+    else:
+        Const = 1000
+        epochs = 1000
     anime = pd.read_csv('anime.csv')
     ratings = pd.read_csv('rating.csv')
     ratings = ratings[ratings['rating'] >= 5] #drop not rated animes
@@ -49,7 +53,7 @@ def train(verbose = True):
         print(cr.X, cr.Theta)
         print(D[:10])
         print(cr.cost())
-    cr.fit(500, 0, 0.001)
+    cr.fit(epochs, 0, 0.001)
     if verbose:
         print(np.round(cr.true_predict())[:10])
         print(cr.cost())
