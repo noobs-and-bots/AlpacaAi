@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Alpaca Ai</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Boogaloo&display=swap">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+</head>
+
+<body ng-app="app" ng-controller="mainController" class="mdc-typography">
+
+    <header class="mdc-top-app-bar mdc-top-app-bar--fixed" data-mdc-auto-init="MDCTopAppBar">
+        <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-center">
+                <span class="mdc-top-app-bar__title">Alpaca AI</span>
+            </section>
+        </div>
+    </header>
+    <div style="width:100%;height:64px;"></div>
+    <div class="main">
+        <div class="part left">
+            <div style="mdc-typography--body1">Wpisz nazwę serii, dla której chcesz znaleźć ...  </div>
+
+            <form ng-submit="getTitleRecommendation()">
+            <div class="mdc-text-field search-text-field" data-mdc-auto-init="MDCTextField">
+                <input class="mdc-text-field__input" type="text" ng-init="" ng-model="title"ng-keydown="$event.keyCode === 13 && getTitleRecommendation()">
+                <div class="mdc-line-ripple"></div>
+                <label class="mdc-floating-label">Tytuł serii</label>
+            </div>
+            </form>
+        </div>
+        <div class="part right">
+                <div style="mdc-typography--body1">... lub wpisz swoją nazwę użytkownika na MALu.</div>
+
+                <form ng-submit="getUserRecommendation()">
+                <div class="mdc-text-field search-text-field" data-mdc-auto-init="MDCTextField">
+                    <input class="mdc-text-field__input" type="text" ng-init="" ng-model="username" ng-keydown="$event.keyCode === 13 && getUserRecommendation()">
+                    <div class="mdc-line-ripple"></div>
+                    <label class="mdc-floating-label">Nazwa użytkownika</label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.0/angular.min.js"></script>
+    <script src="assets/app.js"></script>
+    <link rel="stylesheet" href="assets/styles.css">
+    <script type="text/javascript">
+        window.mdc.autoInit();
+    </script>
+</body>
