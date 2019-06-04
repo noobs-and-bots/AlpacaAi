@@ -27,10 +27,11 @@ def train(anime_path, rating_path, train_level = 1, verbose_lvl = 0):
     ratings = ratings[ratings['rating'] >= 5] #drop not rated animes
     ratings = ratings[ratings['user_id'] <= Const] #drop not rated animes
     # ratings = ratings.head(Const)
-    anime_ids = map_to_ids(ratings, 'anime_id')
-    ids_anime = {val:key for key, val in anime_ids.items()}
-    users_ids = map_to_ids(ratings, 'user_id')
-    ids_users = {val:key for key, val in users_ids.items()}
+    if verbose_lvl > -1:
+        anime_ids = map_to_ids(ratings, 'anime_id')
+        ids_anime = {val:key for key, val in anime_ids.items()}
+        users_ids = map_to_ids(ratings, 'user_id')
+        ids_users = {val:key for key, val in users_ids.items()}
 
     X = np.zeros((len(anime_ids), len(users_ids))) - 1
     for index, row in ratings.iterrows():
@@ -53,7 +54,8 @@ def train(anime_path, rating_path, train_level = 1, verbose_lvl = 0):
         print(cr.X, cr.Theta)
         print(D[:10])
         print(cr.cost())
-    cr.fit(epochs, 0, 0.001)
+    if verbose_lvl > -1:
+        cr.fit(epochs, 0, 0.001)
     if verbose_lvl > 0:
         print(np.round(cr.true_predict())[:10])
         print(cr.cost())

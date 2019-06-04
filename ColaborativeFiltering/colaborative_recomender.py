@@ -20,7 +20,7 @@ class CRInterface:
 
     def most_similar_animes(self, anime_id, n = 10):
         if not anime_id in self._anime_ids:
-            return None
+            return []
         anime_id = self._anime_ids[anime_id]
         anime = self._cr.X[anime_id]
         a = []
@@ -29,7 +29,7 @@ class CRInterface:
                 dst = np.sum((an - anime) ** 2)
                 a.append((self._ids_anime[idx], dst))
         a.sort(key = lambda x : x[1])
-        return [x[0] for x in a[:n]]
+        return [int(x[0]) for x in a[:n]]
 
 class ColaborativeRecomender:
 
@@ -38,7 +38,7 @@ class ColaborativeRecomender:
         self.M = (ratings != -1).astype(np.float32)
         self.masked_ratings = np.ma.array(ratings, mask=(self.M != 1))
         self.mu = np.mean(self.masked_ratings, 1) #mean of rows
-        self.rn_state = np.random.RandomState(seed=0)
+       #self.rn_state = np.random.RandomState(seed=0)
         self.n = n_params #number of features
         self.m, self.u = ratings.shape #number of movies and users
         self.X = np.random.rand(self.m, n_params)
