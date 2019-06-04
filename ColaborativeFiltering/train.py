@@ -1,7 +1,7 @@
 #%%
 import numpy as np
-from colaborative_recomender import ColaborativeRecomender, CRInterface
-from visualize import plot_cost
+from .colaborative_recomender import ColaborativeRecomender, CRInterface
+from .visualize import plot_cost
 import pandas as pd
 
 def map_to_ids(column, idx):
@@ -15,15 +15,15 @@ def map_to_ids(column, idx):
             idd += 1
     return ids
 
-def train(train_level = 1, verbose = True):
+def train(anime_path, rating_path, train_level = 1, verbose_lvl = 0):
     if train_level == 1:
         Const = 500
         epochs = 500
     else:
         Const = 1000
         epochs = 1000
-    anime = pd.read_csv('anime.csv')
-    ratings = pd.read_csv('rating.csv')
+    anime = pd.read_csv(anime_path)
+    ratings = pd.read_csv(rating_path)
     ratings = ratings[ratings['rating'] >= 5] #drop not rated animes
     ratings = ratings[ratings['user_id'] <= Const] #drop not rated animes
     # ratings = ratings.head(Const)
@@ -49,15 +49,16 @@ def train(train_level = 1, verbose = True):
     D = X
 
     cr = ColaborativeRecomender(D, 3, 0.0001, 0)
-    if verbose:
+    if verbose_lvl > 0:
         print(cr.X, cr.Theta)
         print(D[:10])
         print(cr.cost())
     cr.fit(epochs, 0, 0.001)
-    if verbose:
+    if verbose_lvl > 0:
         print(np.round(cr.true_predict())[:10])
         print(cr.cost())
-        plot_cost(cr.errors)
+        if verbose_lvl > 1:
+            plot_cost(cr.errors)
         print(len(anime_ids))
         print(len(users_ids))
         print(ratings.shape)

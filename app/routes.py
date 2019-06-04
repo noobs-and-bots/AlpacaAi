@@ -28,9 +28,12 @@ def send_file_l(path):
 def userrec(uuu):
     return jsonify( ['234'] )
 
+from ColaborativeFiltering.train import train
+CR = train("ColaborativeFiltering\\anime.csv", "ColaborativeFiltering\\rating.csv", 1, True)
+
 @app.route('/get_recommendation/id/<int:ttt>', methods=['POST', 'GET'])
 def titlerec(ttt):
-    return jsonify([234,5081,14813,4224]])
+    return jsonify(CR.most_similar_animes(ttt))
 
 from scrapers import anime
 

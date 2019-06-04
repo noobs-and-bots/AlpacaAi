@@ -29,7 +29,7 @@ class CRInterface:
                 dst = np.sum((an - anime) ** 2)
                 a.append((self._ids_anime[idx], dst))
         a.sort(key = lambda x : x[1])
-        return a[:n]
+        return [x[0] for x in a[:n]]
 
 class ColaborativeRecomender:
 
