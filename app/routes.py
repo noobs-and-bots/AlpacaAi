@@ -2,8 +2,8 @@ from app import app
 from flask import abort, send_from_directory
 
 @app.route('/')
-def nie():
-    abort(404)
+def homego():
+    return send_from_directory('layouts', 'home.html')
 
 
 @app.route('/index')
