@@ -1,16 +1,23 @@
 
 import requests
+import utils
 import json
+import urllib.parse
+import re
+
 from bs4 import BeautifulSoup
 
+
+
 def _getAnimeHtmlByID(anime):
-    res = requests.get('https://myanimelist.net/anime/' + str(anime))
-    if res.status_code != 200:
-        raise RuntimeError('status code not 200')
-    return res.text
+    return utils.safeHTML('https://myanimelist.net/anime/' + str(anime))
+def _getSearchHTML(search):
+    return utils.safeHTML('https://myanimelist.net/search/all?q=' + urllib.parse.quote(search))
 
 def getAnimeID(anime_name):
-    return 37991
+    bs = BeautifulSoup(_getSearchHTML(anime_name), 'html.parser')
+    s = bs.find('article').find('a').attrs['href']
+    return re.findall('\d+', s)[0]
 
 def getAnimeName(anime_id):
     bs = BeautifulSoup(_getAnimeHtmlByID(anime_id), 'html.parser')
