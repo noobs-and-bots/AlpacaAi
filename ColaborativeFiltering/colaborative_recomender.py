@@ -5,6 +5,32 @@ class BadGDException(Exception):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+class CRInterface:
+    
+    def __init__(self, cr, anime_ids, ids_anime, users_ids, ids_users):
+        self._cr = cr
+        self._anime_ids = anime_ids
+        self._ids_anime = ids_anime
+        self._users_ids = users_ids
+        self._ids_users = ids_users
+        self._ratings = cr.ratings
+
+    def is_anime_in_database(self, anime_id):
+        return anime_id in self._anime_ids
+
+    def most_similar_animes(self, anime_id, n = 10):
+        if not anime_id in self._anime_ids:
+            return None
+        anime_id = self._anime_ids[anime_id]
+        anime = self._cr.X[anime_id]
+        a = []
+        for idx, an in enumerate(self._cr.X):
+            if an is not anime:
+                dst = np.sum((an - anime) ** 2)
+                a.append((self._ids_anime[idx], dst))
+        a.sort(key = lambda x : x[1])
+        return a[:n]
+
 class ColaborativeRecomender:
 
     def __init__(self, ratings, n_params, learning_rate, reg_par):
