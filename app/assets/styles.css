@@ -1,0 +1,42 @@
+.mdc-top-app-bar__title {
+    font-family: 'Boogaloo', cursive;
+}
+
+.mdc-top-app-bar__section--align-center {
+    justify-content: center;
+    order: 1
+}
+
+html, body {
+    margin: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f7f7f7;
+}
+
+.part {
+    overflow-x: hidden;
+    width: 50%;
+    height: 100%;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.search-text-field {
+    width:80%;
+    left:10%;
+}
+
+.main {
+    width: 100%;
+    overflow: auto;
+}

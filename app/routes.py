@@ -30,3 +30,9 @@ def userrec(uuu):
 @app.route('/get_recommendation/title/<string:ttt>', methods=['POST', 'GET'])
 def titlerec(ttt):
     return jsonify([ ttt,'x','y','z'])
+
+from scrapers import anime
+
+@app.route('/scrapper/id/<string:str>')
+def animeid(str):
+    return jsonify(anime.getAnimeID(str))
