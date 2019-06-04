@@ -23,6 +23,10 @@ html, body {
     box-sizing: border-box;
 }
 
+.part > * {
+    margin-bottom: 16px;
+}
+
 .left {
     float: left;
 }
@@ -32,8 +36,13 @@ html, body {
 }
 
 .search-text-field {
-    width:80%;
-    left:10%;
+    width: 100%;
+    margin-top: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.search-text-field.empty {
+    margin-top: 40%;
 }
 
 .main {
