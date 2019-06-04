@@ -24,34 +24,58 @@
     <div style="width:100%;height:64px;"></div>
     <div class="main">
         <div class="part left">
-            <div style="mdc-typography--body1">Wpisz nazwę serii, dla której chcesz znaleźć ...  </div>
+            <div style="mdc-typography--body1">Wpisz nazwę serii, dla której chcesz znaleźć ... </div>
 
             <form ng-submit="getTitleRecommendation()">
-            <div class="mdc-text-field search-text-field" data-mdc-auto-init="MDCTextField">
-                <input class="mdc-text-field__input" type="text" ng-init="" ng-model="title"ng-keydown="$event.keyCode === 13 && getTitleRecommendation()">
-                <div class="mdc-line-ripple"></div>
-                <label class="mdc-floating-label">Tytuł serii</label>
-            </div>
+                <div id="title-field" class="mdc-text-field search-text-field empty" data-mdc-auto-init="MDCTextField">
+                    <input class="mdc-text-field__input" type="text" ng-init="" ng-model="title" ng-change="animate()">
+                    <div class="mdc-line-ripple"></div>
+                    <label class="mdc-floating-label">Tytuł serii</label>
+                </div>
             </form>
+
+
+            <ul class="mdc-list mdc-list--two-line">
+                    <li class="mdc-list-item" ng-repeat="recommendation in titleRecommendation">
+                        <span class="mdc-list-item__text"
+                            ng-click="openUrl('https://myanimelist.net/anime/' + recommendation.id);">
+                            <span class="mdc-list-item__primary-text">{{recommendation.name}}</span>
+                            <span class="mdc-list-item__secondary-text">Anime id is: {{recommendation.id}}</span>
+                        </span>
+                    </li>
+                </ul>
         </div>
         <div class="part right">
-                <div style="mdc-typography--body1">... lub wpisz swoją nazwę użytkownika na MALu.</div>
+            <div style="mdc-typography--body1">... lub wpisz swoją nazwę użytkownika na MALu.</div>
 
-                <form ng-submit="getUserRecommendation()">
-                <div class="mdc-text-field search-text-field" data-mdc-auto-init="MDCTextField">
-                    <input class="mdc-text-field__input" type="text" ng-init="" ng-model="username" ng-keydown="$event.keyCode === 13 && getUserRecommendation()">
+            <form ng-submit="getUserRecommendation()">
+                <div id="user-field" class="mdc-text-field search-text-field empty" data-mdc-auto-init="MDCTextField">
+                    <input class="mdc-text-field__input" type="text" ng-init="" ng-model="user" ng-change="animate()">
                     <div class="mdc-line-ripple"></div>
                     <label class="mdc-floating-label">Nazwa użytkownika</label>
                 </div>
             </form>
+
+            <ul class="mdc-list mdc-list--two-line">
+                <li class="mdc-list-item" ng-repeat="recommendation in userRecommendation">
+                    <span class="mdc-list-item__text"
+                        ng-click="openUrl('https://myanimelist.net/anime/' + recommendation.id);">
+                        <span class="mdc-list-item__primary-text">{{recommendation.name}}</span>
+                        <span class="mdc-list-item__secondary-text">Anime id is: {{recommendation.id}}</span>
+                    </span>
+                </li>
+            </ul>
         </div>
     </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.0/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.0/angular-route.min.js"></script>
     <script src="assets/app.js"></script>
     <link rel="stylesheet" href="assets/styles.css">
     <script type="text/javascript">
         window.mdc.autoInit();
     </script>
 </body>
+
+</html>
