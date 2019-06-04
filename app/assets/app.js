@@ -1,9 +1,9 @@
 var app = angular.module('app', ['ngRoute'])
-.config(function ($compileProvider) {
-    $compileProvider.imgSrcSanitizationWhitelist('*');
-    $compileProvider.aHrefSanitizationWhitelist('*');
+    .config(function ($compileProvider) {
+        $compileProvider.imgSrcSanitizationWhitelist('*');
+        $compileProvider.aHrefSanitizationWhitelist('*');
 
-});
+    });
 
 app.controller('mainController', function ($scope, $http) {
 
@@ -11,10 +11,13 @@ app.controller('mainController', function ($scope, $http) {
     $scope.getUserRecommendation = function () {
         console.log($scope.user);
 
-        $http.post('/get_recommendation/user/' +  $scope.user).then(async function (arr) {
+        $http.post('/get_recommendation/user/' + $scope.user).then(async function (arr) {
             console.log(arr.data);
             //$scope.userRecommendation = arr.data.map(idToName);
-            $scope.userRecommendation = await Promise.all(arr.data.map(async function(el) { return {id: el, name: await idToName(el)}; }))
+            $scope.userRecommendation = await Promise.all(arr.data.map(async function (el) {
+                return { id: el, name: await idToName(el)
+                };
+            }));
         }).catch(function (err) {
             console.log(err);
         });
@@ -24,12 +27,16 @@ app.controller('mainController', function ($scope, $http) {
     $scope.getTitleRecommendation = function () {
         console.log($scope.title);
 
-        $http.post('/get_recommendation/title/' +  $scope.title, { test: $scope.title }).then(async function (arr) {
-            console.log(arr.data);
-            //$scope.titleRecommendation = arr.data;
-            $scope.titleRecommendation = await Promise.all(arr.data.map(function(el) { return idToName(el); }))
-        }).catch(function (err) {
-            console.log(err);
+        anyToId($scope.title).then(function (res) {
+            $http.post('/get_recommendation/id/' + res.data).then(async function (arr) {
+                console.log(arr.data);
+                //$scope.titleRecommendation = arr.data;
+                $scope.titleRecommendation = await Promise.all(arr.data.map(async function (el) {
+                    return { id: el, name: await idToName(el) };
+                }));
+            }).catch(function (err) {
+                console.log(err);
+            });
         });
     }
 
@@ -55,13 +62,23 @@ app.controller('mainController', function ($scope, $http) {
     }
 
     async function idToName(id) {
-        res = await $http.get('/scrapper/name/' + id);
+        try {
+            res = await $http.get('/scrapper/name/' + id);
+        } catch (error) {
+            console.log('error, trying again');
+            res = await idToName(id);
+        }
         console.log(res.data);
         return res.data;
     }
 
-   async function anyToId (id) {
-        res = await $http.get('/scrapper/id/' + id);
+    async function anyToId(id) {
+        try {
+            res = await $http.get('/scrapper/id/' + id);
+        } catch (error) {
+            console.log('error, trying again');
+            res = await anyToId(id);
+        }
         console.log(res);
         return res;
     }

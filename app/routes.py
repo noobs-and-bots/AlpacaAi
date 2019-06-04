@@ -30,7 +30,7 @@ def userrec(uuu):
 
 @app.route('/get_recommendation/id/<int:ttt>', methods=['POST', 'GET'])
 def titlerec(ttt):
-    return jsonify([234,5081,14813,4224]])
+    return jsonify([234,5081,14813,4224])
 
 from scrapers import anime
 
