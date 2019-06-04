@@ -28,9 +28,9 @@ def send_file_l(path):
 def userrec(uuu):
     return jsonify( ['234'] )
 
-@app.route('/get_recommendation/title/<string:ttt>', methods=['POST', 'GET'])
+@app.route('/get_recommendation/id/<int:ttt>', methods=['POST', 'GET'])
 def titlerec(ttt):
-    return jsonify(np.random.randint(10000, 100000, 10).tolist())
+    return jsonify([234,5081,14813,4224]])
 
 from scrapers import anime
 
