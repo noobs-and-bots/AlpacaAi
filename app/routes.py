@@ -37,3 +37,10 @@ from scrapers import anime
 @app.route('/scrapper/id/<string:str>')
 def animeid(str):
     return jsonify(anime.getAnimeID(str))
+
+@app.route('/scrapper/name/<int:str>')
+def animename(str):
+    try:
+        x = jsonify(anime.getAnimeName(str))
+    except:
+        abort(503)
