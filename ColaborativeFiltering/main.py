@@ -17,11 +17,11 @@ def map_to_ids(column, idx):
 
 #%%
 
-Const = 1000
+Const = 500
 
 anime = pd.read_csv('anime.csv')
 ratings = pd.read_csv('rating.csv')
-ratings = ratings[ratings['rating'] != -1] #drop not rated animes
+ratings = ratings[ratings['rating'] >= 5] #drop not rated animes
 ratings = ratings[ratings['user_id'] <= Const] #drop not rated animes
 # ratings = ratings.head(Const)
 anime_ids = map_to_ids(ratings, 'anime_id')
@@ -45,12 +45,12 @@ Y = np.array([
 
 D = X
 
-cr = ColaborativeRecomender(D, 5, 0.0001, 0)
+cr = ColaborativeRecomender(D, 3, 0.0001, 0)
 print(cr.X, cr.Theta)
 print(D[:10])
 print(cr.cost())
-cr.fit(1000)
-print(np.round(cr.predict())[:10])
+cr.fit(500, 0, 0.001)
+print(np.round(cr.true_predict())[:10])
 print(cr.cost())
 plot_cost(cr.errors)
 
@@ -60,3 +60,4 @@ print(len(users_ids))
 print(ratings.shape)
 print(len(ratings['user_id'].unique().tolist()), 'unique users')
 print(len(ratings['anime_id'].unique().tolist()), 'unique animes')
+
