@@ -1,5 +1,5 @@
 from app import app
-from flask import abort, send_from_directory
+from flask import abort, send_from_directory, request, jsonify
 
 @app.route('/')
 def homego():
@@ -22,3 +22,11 @@ def send_file_a(path):
 @app.route('/layouts/<path:path>')
 def send_file_l(path):
     return send_from_directory('layouts', path)
+
+@app.route('/get_recommendation/user/<string:uuu>', methods=['POST', 'GET'])
+def userrec(uuu):
+    return jsonify([ uuu,'a','b','c'])
+
+@app.route('/get_recommendation/title/<string:ttt>', methods=['POST', 'GET'])
+def titlerec(ttt):
+    return jsonify([ ttt,'x','y','z'])
