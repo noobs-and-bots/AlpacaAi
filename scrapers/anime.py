@@ -15,9 +15,9 @@ def safeHTML(url):
 
 
 def _getAnimeHtmlByID(anime):
-    return utils.safeHTML('https://myanimelist.net/anime/' + str(anime))
+    return safeHTML('https://myanimelist.net/anime/' + str(anime))
 def _getSearchHTML(search):
-    return utils.safeHTML('https://myanimelist.net/search/all?q=' + urllib.parse.quote(search))
+    return safeHTML('https://myanimelist.net/search/all?q=' + urllib.parse.quote(search))
 
 def getAnimeID(anime_name):
     bs = BeautifulSoup(_getSearchHTML(anime_name), 'html.parser')
