@@ -36,9 +36,8 @@
 
 
             <ul class="mdc-list mdc-list--two-line">
-                    <li class="mdc-list-item" ng-repeat="recommendation in titleRecommendation">
-                        <span class="mdc-list-item__text"
-                            ng-click="openUrl('https://myanimelist.net/anime/' + recommendation.id);">
+                    <li class="mdc-list-item" ng-repeat="recommendation in titleRecommendation" ng-click="openUrl('https://myanimelist.net/anime/' + recommendation.id);">
+                        <span class="mdc-list-item__text">
                             <span class="mdc-list-item__primary-text">{{recommendation.name}}</span>
                             <span class="mdc-list-item__secondary-text">Anime id is: {{recommendation.id}}</span>
                         </span>
@@ -57,9 +56,8 @@
             </form>
 
             <ul class="mdc-list mdc-list--two-line">
-                <li class="mdc-list-item" ng-repeat="recommendation in userRecommendation">
-                    <span class="mdc-list-item__text"
-                        ng-click="openUrl('https://myanimelist.net/anime/' + recommendation.id);">
+                <li class="mdc-list-item" ng-repeat="recommendation in userRecommendation" ng-click="openUrl('https://myanimelist.net/anime/' + recommendation.id);">
+                    <span class="mdc-list-item__text">
                         <span class="mdc-list-item__primary-text">{{recommendation.name}}</span>
                         <span class="mdc-list-item__secondary-text">Anime id is: {{recommendation.id}}</span>
                     </span>
