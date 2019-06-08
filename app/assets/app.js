@@ -2,8 +2,13 @@ var app = angular.module('app', ['ngRoute'])
     .config(function ($compileProvider) {
         $compileProvider.imgSrcSanitizationWhitelist('*');
         $compileProvider.aHrefSanitizationWhitelist('*');
+});
 
-    });
+//import {MDCSnackbar} from '@material/snackbar';
+
+//const snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar'));
+
+//snackbar.open();
 
 app.controller('mainController', function ($scope, $http) {
 
@@ -30,6 +35,8 @@ app.controller('mainController', function ($scope, $http) {
         anyToId($scope.title).then(function (res) {
             $http.post('/get_recommendation/id/' + res.data).then(async function (arr) {
                 console.log(arr.data);
+
+                arr.data.length = 4;
                 //$scope.titleRecommendation = arr.data;
                 $scope.titleRecommendation = await Promise.all(arr.data.map(async function (el) {
                     return { id: el, name: await idToName(el) };
@@ -66,7 +73,7 @@ app.controller('mainController', function ($scope, $http) {
             res = await $http.get('/scrapper/name/' + id);
         } catch (error) {
             console.log('error, trying again');
-            res = await idToName(id);
+            res = new Promise(function () { return ""});
         }
         console.log(res.data);
         return res.data;
@@ -77,7 +84,7 @@ app.controller('mainController', function ($scope, $http) {
             res = await $http.get('/scrapper/id/' + id);
         } catch (error) {
             console.log('error, trying again');
-            res = await anyToId(id);
+            res = new Promise(function () { return ""});
         }
         console.log(res);
         return res;

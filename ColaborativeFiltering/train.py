@@ -20,7 +20,7 @@ def train(anime_path, rating_path, train_level = 1, verbose_lvl = 0):
         Const = 500
         epochs = 500
     else:
-        Const = 1000
+        Const = 500
         epochs = 1000
     anime = pd.read_csv(anime_path)
     ratings = pd.read_csv(rating_path)
@@ -49,7 +49,7 @@ def train(anime_path, rating_path, train_level = 1, verbose_lvl = 0):
 
     D = X
 
-    cr = ColaborativeRecomender(D, 3, 0.0001, 0)
+    cr = ColaborativeRecomender(D, 3, 0.0003, 0)
     if verbose_lvl > 0:
         print(cr.X, cr.Theta)
         print(D[:10])
