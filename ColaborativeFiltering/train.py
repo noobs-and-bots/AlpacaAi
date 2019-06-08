@@ -20,8 +20,8 @@ def train(anime_path, rating_path, train_level = 1, verbose_lvl = 0):
         Const = 500
         epochs = 500
     else:
-        Const = 500
-        epochs = 1000
+        Const = 5
+        epochs = 10
     anime = pd.read_csv(anime_path)
     ratings = pd.read_csv(rating_path)
     ratings = ratings[ratings['rating'] >= 5] #drop not rated animes
