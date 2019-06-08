@@ -24,7 +24,7 @@
     <div style="width:100%;height:64px;"></div>
     <div class="main">
         <div class="part left">
-            <div style="mdc-typography--body1">Wpisz nazwę serii, dla której chcesz znaleźć ... </div>
+            <div style="mdc-typography--body1">Wpisz nazwę anime, dla którego chcesz znaleźć podobne ... </div>
 
             <form ng-submit="getTitleRecommendation()">
                 <div id="title-field" class="mdc-text-field search-text-field empty" data-mdc-auto-init="MDCTextField">
@@ -46,7 +46,7 @@
             </ul>
         </div>
         <div class="part right">
-            <div style="mdc-typography--body1">... lub wpisz swoją nazwę użytkownika na MALu.</div>
+            <div style="mdc-typography--body1">... lub wpisz swoją nazwę użytkownika na MALu. (już wkrótce)</div>
 
             <form ng-submit="getUserRecommendation()">
                 <div id="user-field" class="mdc-text-field mdc-text-field--disabled search-text-field empty" data-mdc-auto-init="MDCTextField">
@@ -72,9 +72,6 @@
         <div class="mdc-snackbar__surface">
             <div class="mdc-snackbar__label" role="status" aria-live="polite">
                 Can't send photo. Retry in 5 seconds.
-            </div>
-            <div class="mdc-snackbar__actions">
-                <button type="button" class="mdc-button mdc-snackbar__action">Retry</button>
             </div>
         </div>
     </div>
